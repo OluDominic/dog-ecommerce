@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useReducer, useRef} from 'react';
-import './App.css';
-import Products from './Products';
-import Footer from './Footer'
+//import './App.css';
+import Header from './components/header'
+import Homepage from './pages/Homepage'
+import './default.scss'
 
   const App=()=> {
     return(
-    <div>
-      <Products />
-      <Footer />
+    <div className="App">
+      <Header />
+      <div className="main">
+      <Homepage />
+    </div>
     </div>
     )
   }

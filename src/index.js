@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Flex from './Flexbox'
+import App from './App'
 //import { ApolloProvider } from "react-apollo";
 //import ApolloClient from "apollo-boost"
 import * as serviceWorker from './serviceWorker';
 
 
 
-ReactDOM.render(<Flex/>,
+ReactDOM.render(<App/>,
   
   document.getElementById('root')
 );
