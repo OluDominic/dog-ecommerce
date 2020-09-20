@@ -10,11 +10,18 @@
 
         .logo-main {
             position: absolute;
-            left: 10px;
+            width: 130px;
+            left: 5%;
             top: 50%;
             -webkit-transform: translateY(-50%);
             -moz-transform: translateY(-50%);
             transform: translateY(-50%);
+
+            img {
+                display: block;
+                width: 100%;
+                margin: 0;
+            }
         }
     }
 }
