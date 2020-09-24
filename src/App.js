@@ -49,6 +49,7 @@ const initialState = {
     }
     render() {
       const { currentUser } = this.state;
+      
       return(
         <div className="App">
           <Switch>
@@ -57,7 +58,7 @@ const initialState = {
                   <Homepage />
                 </Home>
               )} />
-              <Route path="/signup" render={()=> (
+              <Route path="/signup" render={()=> currentUser ? <Redirect to="/" /> : (
                 <Layout currentUser={currentUser}>
                   <Register />
                 </Layout>
