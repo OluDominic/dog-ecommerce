@@ -1,9 +1,11 @@
 import React from 'react';
 import './index.scss'
-import Button from './../../components/forms/Buttons/index'
-import { signInWithGoogle, auth } from './../../firebase/utility'
+import Button from './../forms/Buttons'
+import { signInWithGoogle, auth } from './../../firebase/utility';
 import FormInput from './../forms/FormInput';
-import Buttons from './../forms/Buttons';
+import AuthWrapper from './../AuthWrapper';
+import Buttons from './../forms/Buttons/index';
+import { Link } from 'react-router-dom';
 
 
 const initialState = {
@@ -41,13 +43,11 @@ class SignIn extends React.Component {
     render() {
 
         const {email, password } = this.state;
+        const configAuthWrapper = {
+            headline: 'Login'
+        };
         return (
-            <div className="signin">
-                <div className="wrap">
-                    <h2>
-                        Login
-                    </h2>
-    
+            <AuthWrapper {...configAuthWrapper}>
                     <div>
                         <form onSubmit={this.handleSubmit}>
 
@@ -78,10 +78,15 @@ class SignIn extends React.Component {
                                     </Button>
                                 </div>
                             </div>
+
+                            <div className="links">
+                                <Link to="/recovery">
+                                    Forgot Password?
+                                </Link>
+                            </div>
                         </form>
                     </div>
-                </div>
-            </div>
+            </AuthWrapper>
         );
     }
     

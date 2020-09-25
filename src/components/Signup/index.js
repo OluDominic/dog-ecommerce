@@ -2,6 +2,7 @@ import React from 'react';
 import FormInput from '../forms/FormInput';
 import Button from './../../components/forms/Buttons/index'
 import { auth, handleUserProfile } from './../../firebase/utility'
+import AuthWrapper from './../AuthWrapper'
 import './index.scss';
 
 const initialState = {
@@ -61,14 +62,15 @@ class Signup extends React.Component {
 
     render(){
         const { displayName, email, password, confirmPassword, errors } = this.state;
+        const configWrap = {
+            headline: 'Register Here'
+        }
 
         return (
-            <div className="signin">
+            <AuthWrapper {...configWrap}>
+                    
                 <div className="wrap">
-                    <h2>
-                        SignUp
-                    </h2>
-
+                        
                     {errors.length > 0 && (
                         <ul>
                             {errors.map((err, index)=> {
@@ -80,7 +82,6 @@ class Signup extends React.Component {
                             })}
                         </ul>
                     )}
-                    <div className="wrap">
                     <form onSubmit={this.handleFormSubmit}>
 
                         <FormInput 
@@ -119,9 +120,9 @@ class Signup extends React.Component {
                             Register
                         </Button>
                     </form>
-                    </div>
                 </div>
-            </div>
+                
+            </AuthWrapper>
         );
     }
 }

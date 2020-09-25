@@ -6,6 +6,7 @@ import Home from './Layouts/home'
 import Homepage from './pages/Homepage'
 import Register from './pages/Registration';
 import Login from './pages/Login/login';
+import Recovery from './pages/Recovery/recovery'
 import { auth, handleUserProfile } from './firebase/utility'
 import './default.scss'
 
@@ -69,6 +70,13 @@ const initialState = {
                   <Login />
                 </Layout>
               )} />
+              <Route path="/recovery"
+                  render={()=> (
+                  <Layout>
+                  <Recovery />
+                </Layout>
+              )}
+              />
           </Switch>
         </div>
         )

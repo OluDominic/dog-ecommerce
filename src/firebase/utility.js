@@ -30,7 +30,7 @@ export const handleUserProfile = async (userAuth, additionalData) => {
                 email,
                 createdDate: timestamp,
                 ...additionalData
-            })
+            });
         }   catch(err) {
                 // console.log(err)
         }
