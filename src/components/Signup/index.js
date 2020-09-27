@@ -1,67 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react'
 import FormInput from '../forms/FormInput';
+import {withRouter} from 'react-router-dom';
 import Button from './../../components/forms/Buttons/index'
 import { auth, handleUserProfile } from './../../firebase/utility'
 import AuthWrapper from './../AuthWrapper'
 import './index.scss';
 
-const initialState = {
-    displayName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    errors: []
-};
 
-class Signup extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            ...initialState
-        };
+const Signup =(props)=> {
+    const [displayName, setDisplayname] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [errors, setErrors] = useState([])
+
+    const Change =()=> {
+        setDisplayname('');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+        setErrors([]);
     }
 
-    handleChange= (e)=> {
-        const { name, value } = e.target;
-
-        this.setState({
-            [name]: value
-        });
-    }
-
-    handleFormSubmit = async event => {
+    const handleFormSubmit = async event => {
         event.preventDefault();
-        const { displayName,
-        email,
-        password,
-        confirmPassword,
-        } = this.state;
 
         if(password !== confirmPassword) {
             const err = ['Password don\'t match'];
-            this.setState({
-                errors: err
-            })
+            setErrors(err);
             return;
         }
 
         try {
-
+            
             const { user } = await auth.createUserWithEmailAndPassword(email, password);
 
             await handleUserProfile(user, { displayName });
-
-            this.setState({
-                ...initialState
-            });
-
+            Change();
+            props.history.push('/')
         } catch (err) {
             // console.log(err);
         }
     }
 
-    render(){
-        const { displayName, email, password, confirmPassword, errors } = this.state;
+       
         const configWrap = {
             headline: 'Register Here'
         }
@@ -82,14 +64,14 @@ class Signup extends React.Component {
                             })}
                         </ul>
                     )}
-                    <form onSubmit={this.handleFormSubmit}>
+                    <form onSubmit={handleFormSubmit}>
 
                         <FormInput 
                         type="text"
                         name="displayName"
                         value={displayName}
                         placeholder="Full name"
-                        onChange={this.handleChange}
+                        handleChange={e=> setDisplayname(e.target.value)}
                         />
 
                         <FormInput 
@@ -97,7 +79,7 @@ class Signup extends React.Component {
                         name="email"
                         value={email}
                         placeholder="Email"
-                        onChange={this.handleChange}
+                        handleChange={e=> setEmail(e.target.value)}
                         />
 
                         <FormInput 
@@ -105,7 +87,7 @@ class Signup extends React.Component {
                         name="password"
                         value={password}
                         placeholder="Enter password"
-                        onChange={this.handleChange}
+                        handleChange={e=> setPassword(e.target.value)}
                         />
 
                         <FormInput 
@@ -113,7 +95,7 @@ class Signup extends React.Component {
                         name="confirmPassword"
                         value={confirmPassword}
                         placeholder="Confirm password"
-                        onChange={this.handleChange}
+                        handleChange={e=> setConfirmPassword(e.target.value)}
                         />
 
                         <Button type="submit" >
@@ -121,10 +103,9 @@ class Signup extends React.Component {
                         </Button>
                     </form>
                 </div>
-                
+
             </AuthWrapper>
         );
-    }
 }
 
-export default Signup;
+export default withRouter(Signup);
