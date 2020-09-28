@@ -1,18 +1,37 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import FormInput from '../forms/FormInput';
+import { useDispatch, useSelector } from 'react-redux';
+import { signUpUser, resetAllAuthForms } from './../../redux/User/user.actions'
 import {withRouter} from 'react-router-dom';
 import Button from './../../components/forms/Buttons/index'
-import { auth, handleUserProfile } from './../../firebase/utility'
 import AuthWrapper from './../AuthWrapper'
 import './index.scss';
 
-
+const mapState = ({ user }) => ({
+    signUpSuccess: user.signUpSuccess,
+    signUpError: user.signUpError
+})
 const Signup =(props)=> {
+    const { signUpSuccess, signUpError } = useSelector(mapState);
+    const dispatch = useDispatch();
     const [displayName, setDisplayname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errors, setErrors] = useState([])
+
+    useEffect(()=> {
+        if (signUpSuccess) {
+            Change();
+            dispatch(resetAllAuthForms())
+            props.history.push('/')  
+        }
+    }, [signUpSuccess]);
+
+    useEffect(()=> {
+        if (Array.isArray(signUpError) && signUpError.length > 0) {
+            setErrors(signUpError);
+        }    }, [signUpError])
 
     const Change =()=> {
         setDisplayname('');
@@ -24,26 +43,14 @@ const Signup =(props)=> {
 
     const handleFormSubmit = async event => {
         event.preventDefault();
-
-        if(password !== confirmPassword) {
-            const err = ['Password don\'t match'];
-            setErrors(err);
-            return;
-        }
-
-        try {
-            
-            const { user } = await auth.createUserWithEmailAndPassword(email, password);
-
-            await handleUserProfile(user, { displayName });
-            Change();
-            props.history.push('/')
-        } catch (err) {
-            // console.log(err);
-        }
+        dispatch(signUpUser({
+            displayName,
+            email,
+            password,
+            confirmPassword
+        }))
+        
     }
-
-       
         const configWrap = {
             headline: 'Register Here'
         }

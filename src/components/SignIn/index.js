@@ -1,32 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import './index.scss'
 import Button from './../forms/Buttons'
-import { signInWithGoogle, auth } from './../../firebase/utility';
 import FormInput from './../forms/FormInput';
 import AuthWrapper from './../AuthWrapper';
+import { useDispatch, useSelector } from 'react-redux'
+import { signInUser,signInWithGoogle, resetAllAuthForms } from './../../redux/User/user.actions'
 import Buttons from './../forms/Buttons/index';
 import { Link, withRouter } from 'react-router-dom';
 
-
+const mapState = ({ user }) => ({
+    signInSuccess: user.signInSuccess
+})
 
 const SignIn = props => {
+    const { signInSuccess } = useSelector(mapState)
+    const dispatch = useDispatch();
     const [email, setEmail ] = useState('');
     const [password, setPassword ] = useState('')
+
+    useEffect(() => {
+        if (signInSuccess) {
+            initialState();
+            dispatch(resetAllAuthForms());
+        props.history.push('/');
+        }
+    }, [signInSuccess]);
 
     const initialState =()=> {
         setEmail('');
             setPassword('');
     };
-    const handleSubmit= async e => {
+    const handleSubmit= e => {
         e.preventDefault();
+        dispatch(signInUser({email, password}));
+    }
 
-        try {
-            await auth.signInWithEmailAndPassword(email, password)
-            initialState();
-            props.history.push('/');
-        } catch (err) {
-
-        }
+    const handleGoogleSign = () => {
+        dispatch(signInWithGoogle());
     }
 
         const configAuthWrapper = {
@@ -59,7 +69,7 @@ const SignIn = props => {
 
                             <div className="googlesignin">
                                 <div>
-                                    <Button onClick={signInWithGoogle}>
+                                    <Button onClick={handleGoogleSign}>
                                         Sign in with google
                                     </Button>
                                 </div>
