@@ -10,7 +10,12 @@ import Register from './pages/Registration';
 import Login from './pages/Login/login';
 import Recovery from './pages/Recovery/recovery'
 import Dashboard from './pages/Dashboard';
-import WithAuth from './hoc/withAuth'
+import WithAuth from './hoc/withAuth';
+import Admin from './pages/Admin/admin';
+import WithAdminAuth from './hoc/withAdminAuth';
+import AdminToolbar from './components/AdminToolbar';
+import AdminLay from './Layouts/admin'
+import DashboardLay from './Layouts/dashboard'
 import './default.scss'
 
 
@@ -25,6 +30,7 @@ const App =props=> {
       
       return(
         <div className="App">
+          <AdminToolbar/>
           <Switch>
               <Route exact path="/" render={()=> (
                 <Home>
@@ -52,10 +58,19 @@ const App =props=> {
               <Route path="/dashboard"
                   render={()=> (
                 <WithAuth>
-                  <Layout>
+                  <DashboardLay>
                   <Dashboard />
-                  </Layout>
+                  </DashboardLay>
                 </WithAuth>
+              )}
+              />
+              <Route path="/admin"
+                  render={()=> (
+                <WithAdminAuth>
+                  <AdminLay>
+                  <Admin />
+                  </AdminLay>
+                </WithAdminAuth> 
               )}
               />
           </Switch>
