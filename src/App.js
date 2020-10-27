@@ -55,8 +55,7 @@ const App =props=> {
                 </Layout>
               )}
               />
-              <Route path="/dashboard"
-                  render={()=> (
+              <Route path="/dashboard" render={()=> (
                 <WithAuth>
                   <DashboardLay>
                   <Dashboard />
@@ -64,8 +63,7 @@ const App =props=> {
                 </WithAuth>
               )}
               />
-              <Route path="/admin"
-                  render={()=> (
+              <Route path="/admin" render={()=> (
                 <WithAdminAuth>
                   <AdminLay>
                   <Admin />
