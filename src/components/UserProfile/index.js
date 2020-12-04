@@ -1,4 +1,5 @@
 import React from 'react'
+import avatar from './../../avatar.png'
 import './index.scss'
 
 const UserProfile = props => {
@@ -10,7 +11,7 @@ const UserProfile = props => {
             <ul>
                 <li>
                     <div className="img">
-                        Picture here
+                        <img src={avatar} alt="avatar"/>
                     </div>
                 </li>
                 <li>

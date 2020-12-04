@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { signOutUserStart } from './../redux/User/user.actions';
 import Header from './../components/header';
 import VerticalNav from './../components/VertivalNav';
-import Footer from './../components/footer';
+import Footer from './../components/footer/Footer';
 
 const Dashboard =props=> {
     const dispatch = useDispatch();

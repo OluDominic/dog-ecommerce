@@ -1,11 +1,14 @@
 import React, {useState} from 'react';
+import { useDispatch } from 'react-redux'
+import { addProductStart } from './../../redux/Products/products.actions'
 import Modal from './../../components/Modal';
-import FormSelect from './../../components/forms/FormSelect'
-import FormInput from './../../components/forms/FormInput'
+import FormSelect from './../../components/forms/FormSelect/formSelect'
+import FormInput from './../../components/forms/FormInput/index'
 import Button from './../../components/forms/Buttons'
 import './admin.scss';
 
 const Admin = props=> {
+    const dispatch = useDispatch();
     const [hideModal, setHideModal] = useState(true);
     const [productCategory, setProductCategory] = useState('')
     const [productName, setProductName] = useState('');
@@ -21,6 +24,15 @@ const Admin = props=> {
 
     const handleSubmit=e=> {
         e.preventDefault();
+
+        dispatch(
+            addProductStart({
+                productCategory,
+                productName,
+                productThumbnail,
+                productPrice
+            })
+        );
     }
     return (
         <div className="admin">

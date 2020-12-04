@@ -15,7 +15,7 @@ const VerticalNav = ({ children }) => {
     }
 
     return (
-        <div className="vertivalNav">
+        <div className="verticalNav">
             <UserProfile {...configUserProfile} />
 
             <div className="menu">

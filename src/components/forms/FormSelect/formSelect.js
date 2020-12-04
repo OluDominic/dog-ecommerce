@@ -5,14 +5,14 @@ const FormSelect = ({ options, defaultValue, handleChange, label, ...otherProps}
     if(!Array.isArray(options) || options.length < 1) return null;
 
     return (
-        <div className="formSelect">
+        <div className="formRow">
             {label && (
                 <label>
                     {label}
                 </label>
             )}
 
-            <select className="formSelect" value={defaultValue} {...otherProps}>
+            <select className="formSelect" value={defaultValue} onChange={handleChange} {...otherProps}>
                 {options.map((option, index) => {
                     const { value, name } = option;
                     return (
