@@ -1,8 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import Logo from './../../log/doggypup.png'
 import { useSelector, useDispatch } from 'react-redux';
 import { signOutUserStart } from './../../redux/User/user.actions';
-import { Link } from 'react-router-dom';
 import './styles.scss'
 
 
@@ -25,6 +25,21 @@ const Header=(props)=> {
                     <img src={Logo} alt="Logo" />
                     </Link>
                 </div>
+
+                <nav>
+                    <ul>
+                        <li>
+                            <Link to="/">
+                                Home
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/search">
+                                Search
+                            </Link>
+                        </li>
+                    </ul>
+                </nav>
 
                 <div className="headerLink">
 

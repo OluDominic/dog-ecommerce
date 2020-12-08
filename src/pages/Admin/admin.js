@@ -70,7 +70,6 @@ const Admin = props=> {
 
             <Modal {...configModal}>
 
-                
                 <div className="addNewProductForm">
                     <form onSubmit={handleSubmit}>
                         
@@ -123,6 +122,7 @@ const Admin = props=> {
                 </div>
             </Modal>
             
+            
             <div className="manageProducts">
                     <table border="0" cellPadding="0" cellSpacing="0">
                         <tbody>
@@ -171,6 +171,7 @@ const Admin = props=> {
                     </table>
                 </div>
         </div>
+        
     );
 }
 

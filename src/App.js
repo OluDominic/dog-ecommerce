@@ -17,6 +17,7 @@ import AdminToolbar from './components/AdminToolbar';
 import AdminLay from './Layouts/admin'
 import DashboardLay from './Layouts/dashboard'
 import './default.scss'
+import Search from './pages/Search/search';
 
 
 const App =props=> {
@@ -36,6 +37,11 @@ const App =props=> {
                 <Home>
                   <Homepage />
                 </Home>
+              )} />
+              <Route exact path="/search" render={()=> (
+                <Layout>
+                  <Search />
+                </Layout>
               )} />
               <Route path="/signup" render={()=> (
                 <Layout>

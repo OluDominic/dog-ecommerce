@@ -24,6 +24,38 @@
             }
         }
 
+        nav {
+            display: block;
+            width: 100%;
+            padding: 0;
+            height: 100%;
+            margin: 0;
+
+            ul, ul li {
+                padding: 0;
+                margin: 0;
+                height: 100%;
+            }
+
+            ul {
+                text-align: center;
+                li {
+                    list-style-type: none;
+                    display: inline-block;
+                    margin: 0 1rem;
+
+                    a {
+                    font-size: 1.8rem;
+                    line-height: 6.5rem;
+                    vertical-align: middle;
+                    color: black;
+                    text-decoration: none;
+                    text-transform: uppercase;
+                    }
+                }
+            }
+        }
+
         .headerLink {
             position: absolute;
             right: 5%;
