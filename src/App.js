@@ -43,6 +43,11 @@ const App =props=> {
                   <Search />
                 </Layout>
               )} />
+              <Route path="/search/:filterType" render={()=> (
+                <Layout>
+                  <Search />
+                </Layout>
+              )} />
               <Route path="/signup" render={()=> (
                 <Layout>
                   <Register />
