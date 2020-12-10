@@ -6,6 +6,8 @@ import FormSelect from './../../components/forms/FormSelect/formSelect'
 import FormInput from './../../components/forms/FormInput/index'
 import Button from './../../components/forms/Buttons'
 import Buttons from './../../components/forms/Buttons'
+import LoadMore from './../../components/LoadMore/LoadMore'
+import CKEditor from 'ckeditor4-react';
 import './admin.scss';
 
 const mapState = ({ productsData }) => ({
@@ -20,6 +22,9 @@ const Admin = props=> {
     const [productName, setProductName] = useState('');
     const [productThumbnail, setProductThumbnail] = useState('');
     const [productPrice, setProductPrice] = useState(0);
+    const [productDescription, setProductDescription] = useState('')
+
+    const { data, queryDoc, isLastPage } = products
 
     useEffect(()=> {
         dispatch(
@@ -40,6 +45,7 @@ const Admin = props=> {
         setProductName('');
         setProductThumbnail('');
         setProductPrice(0);
+        setProductDescription('');
     }
 
     const handleSubmit = e=> {
@@ -50,10 +56,24 @@ const Admin = props=> {
                 productCategory,
                 productName,
                 productThumbnail,
-                productPrice
+                productPrice,
+                productDescription
             })
         );
         resetForm();
+    };
+
+    const handleLoadMore =() => {
+        dispatch(
+            fetchProductsStart({
+                startAfterDoc: queryDoc,
+                persistProducts: data
+            })
+        );
+    };
+
+    const configLoadMore = {
+        onLoadMore: handleLoadMore
     }
     return (
         <div className="admin">
@@ -114,6 +134,12 @@ const Admin = props=> {
                     handleChange={e => setProductPrice(e.target.value)}
                     />
 
+                    <CKEditor
+                        onChange={evt => setProductDescription(evt.editor.getData())}
+                    />
+
+                    <br />
+
                     <Button type="submit">
                         Add product
                     </Button>
@@ -137,7 +163,7 @@ const Admin = props=> {
                                 <td>
                                     <table className="results" border="0" cellPadding="10" cellSpacing="0">
                                         <tbody>
-                                            {products.map((product, index) => {
+                                            {(Array.isArray(data) && data.length > 0) && data.map((product, index) => {
                                                 const {
                                                     productName,
                                                     productThumbnail,
@@ -167,6 +193,26 @@ const Admin = props=> {
                                     </table>
                                 </td>
                             </tr>
+                        <tr>
+                            <td>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table border="0" cellPadding="10px" cellSpacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                {!isLastPage && (
+                                                <LoadMore {...configLoadMore} />
+                                                )}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

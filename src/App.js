@@ -16,6 +16,7 @@ import WithAdminAuth from './hoc/withAdminAuth';
 import AdminToolbar from './components/AdminToolbar';
 import AdminLay from './Layouts/admin'
 import DashboardLay from './Layouts/dashboard'
+import ProductDetails from './pages/ProductDetails';
 import './default.scss'
 import Search from './pages/Search/search';
 
@@ -46,6 +47,11 @@ const App =props=> {
               <Route path="/search/:filterType" render={()=> (
                 <Layout>
                   <Search />
+                </Layout>
+              )} />
+              <Route path="/product/:productID" render={()=> (
+                <Layout>
+                  <ProductDetails />
                 </Layout>
               )} />
               <Route path="/signup" render={()=> (
