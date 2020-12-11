@@ -3,16 +3,18 @@ import { Link } from 'react-router-dom'
 import Logo from './../../log/doggypup.png'
 import { useSelector, useDispatch } from 'react-redux';
 import { signOutUserStart } from './../../redux/User/user.actions';
+import { selectCartItemsCount } from './../../redux/Cart/cart.selectors'
 import './styles.scss'
 
 
-const mapState = ({ user }) => ({
-    currentUser: user.currentUser
-})
+const mapState = (state) => ({
+    currentUser: state.user.currentUser,
+    totalNumCartItems: selectCartItemsCount(state)
+});
 
 const Header=(props)=> {
     const dispatch = useDispatch();
-    const { currentUser } = useSelector(mapState);
+    const { currentUser, totalNumCartItems } = useSelector(mapState);
 
     const signOut=()=> {
         dispatch(signOutUserStart());
@@ -43,35 +45,43 @@ const Header=(props)=> {
 
                 <div className="headerLink">
 
-                    {currentUser && (
-                        <ul>
-                            <li>
-                            <Link to="/dashboard">
-                            My Account
-                            </Link>
-                        </li>
-                            <li>
-                                <span onClick={()=> signOut()}>
-                                    LogOut
-                                </span>
-                            </li>
-                        </ul>
-                    )}
+                    <ul>
 
-                    {!currentUser && (
-                        <ul>
                         <li>
-                            <Link to="/signup">
-                            Sign Up
+                            <Link>
+                                Your Cart ({totalNumCartItems})
                             </Link>
                         </li>
-                        <li>
-                            <Link to="/login">
-                            Login
-                            </Link>
-                        </li>
+
+                        {currentUser && [
+                                <li>
+                                <Link to="/dashboard">
+                                My Account
+                                </Link>
+                            </li>,
+                                <li>
+                                    <span style={{cursor: 'pointer'}} onClick={()=> signOut()}>
+                                        LogOut
+                                    </span>
+                                </li>
+                        ]}
+
+                        {!currentUser && [
+                            <li>
+                                <Link to="/signup">
+                                Sign Up
+                                </Link>
+                            </li>,
+                            <li>
+                                <Link to="/login">
+                                Login
+                                </Link>
+                            </li>
+                        ]}
+                    
                     </ul>
-                    )}
+
+
                     
                 </div>
             </div>
