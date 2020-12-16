@@ -11,6 +11,7 @@ import Login from './pages/Login/login';
 import Recovery from './pages/Recovery/recovery'
 import Dashboard from './pages/Dashboard';
 import WithAuth from './hoc/withAuth';
+import Cart from './pages/Cart/cart'
 import Admin from './pages/Admin/admin';
 import WithAdminAuth from './hoc/withAdminAuth';
 import AdminToolbar from './components/AdminToolbar';
@@ -52,6 +53,11 @@ const App =props=> {
               <Route path="/product/:productID" render={()=> (
                 <Layout>
                   <ProductDetails />
+                </Layout>
+              )} />
+              <Route path="/cart" render={()=> (
+                <Layout>
+                  <Cart />
                 </Layout>
               )} />
               <Route path="/signup" render={()=> (
