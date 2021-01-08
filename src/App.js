@@ -20,6 +20,7 @@ import DashboardLay from './Layouts/dashboard'
 import ProductDetails from './pages/ProductDetails';
 import './default.scss'
 import Search from './pages/Search/search';
+import Payment from './pages/Payment'
 
 
 const App =props=> {
@@ -59,6 +60,13 @@ const App =props=> {
                 <Layout>
                   <Cart />
                 </Layout>
+              )} />
+              <Route path="/payment" render={() => (
+                <WithAuth>
+                  <Layout>
+                    <Payment />
+                  </Layout>
+                </WithAuth>
               )} />
               <Route path="/signup" render={()=> (
                 <Layout>

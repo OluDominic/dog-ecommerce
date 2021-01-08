@@ -1,0 +1,1 @@
+export const publickey = 'pk_test_1ec50e55ec316f094aca78a9b0ba93f0efeed0cc';
