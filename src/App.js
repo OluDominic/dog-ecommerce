@@ -21,6 +21,7 @@ import ProductDetails from './pages/ProductDetails';
 import './default.scss'
 import Search from './pages/Search/search';
 import Payment from './pages/Payment'
+import Order from './pages/Order'
 
 
 const App =props=> {
@@ -90,6 +91,14 @@ const App =props=> {
                 <WithAuth>
                   <DashboardLay>
                   <Dashboard />
+                  </DashboardLay>
+                </WithAuth>
+              )}
+              />
+              <Route path="/order/:orderID" render={() => (
+                <WithAuth>
+                  <DashboardLay>
+                    <Order />
                   </DashboardLay>
                 </WithAuth>
               )}

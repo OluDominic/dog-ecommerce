@@ -4,12 +4,13 @@ import storage from 'redux-persist/lib/storage'
 import userReducers from './User/user.reducer';
 import productsReducer from './Products/products.reducer'
 import cartReducer from './Cart/cart.reducer'
-
+import ordersReducer from './Order/orders.reducers'
 
 export const rootReducer = combineReducers({
     user: userReducers,
     productsData: productsReducer,
-    cartData: cartReducer
+    cartData: cartReducer,
+    ordersData: ordersReducer,
 })
 
 const configStorage = {
