@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import FormInput from './../forms/FormInput'
-//import { PaystackButton} from 'react-paystack'
+import { PaystackButton } from 'react-paystack'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import Button from './../forms/Buttons'
 import { CountryDropdown } from 'react-country-region-selector'
@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { saveOrderHistory } from './../../redux/Order/orders.actions'
 import { clearCart } from './../../redux/Cart/cart.actions';
 import { useHistory } from 'react-router-dom'
+import { publickey } from './../../paystack/config'
 import './index.scss'
 
 const initialAddressState = {
@@ -29,6 +30,8 @@ const mapState = createStructuredSelector({
 });
 
 const PaymentDetails = () => {
+    const amount = 1000000
+    const pubKey = publickey()
     const stripe = useStripe();
     const history = useHistory();
     const elements = useElements();
@@ -38,6 +41,12 @@ const PaymentDetails = () => {
     const [shippingAddress, setShippingAddress] = useState({...initialAddressState});
     const [recipientName, setRecipientName] = useState('');
     const [nameOnCard, setNameOnCard] = useState('');
+
+    const componentProps = {
+        amount,
+        pubKey,
+        text: "Pay Now",
+    }
 
     useEffect(() => {
         if (itemCount < 1) {
@@ -305,7 +314,7 @@ const PaymentDetails = () => {
                     PAY NOW
                 </Button>
             </form>
-
+            <PaystackButton />
             
         </div>
     )
